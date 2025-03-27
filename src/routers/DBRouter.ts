@@ -11,18 +11,18 @@ const router: Router = express.Router();
 router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
 
-// // Создание записей в таблицах
-// router.post('/createuser', checkRoleMiddleware(['admin']), DBControllerUsers.createUsers);
-// router.post('/createpassenger', authMiddleware, DBControllerPassengers.createPassengers);
+// Создание записей в таблицах
+router.post('/createuser', checkRoleMiddleware(['admin']), DBControllerUsers.createUsers);
+router.post('/createpassenger', authMiddleware, DBControllerPassengers.createPassengers);
 
-// // Выборка всех записей из таблиц
-// router.get('/getallusers', DBControllerUsers.getAll);
-// router.get('/getallpassengers', DBControllerPassengers.getAll);
+// Выборка всех записей из таблиц
+router.get('/getallusers', DBControllerUsers.getAll);
+router.get('/getallpassengers', DBControllerPassengers.getAll);
 
-// // Выборка по ID
-// router.get('/getpas/:id_passenger(\d+)', DBControllerPassengers.getID);
+// Выборка по ID
+router.get('/getpas/:id_passenger(\d+)', DBControllerPassengers.getID);
 
-// // Обновление пользователя
-// router.patch('/red', checkRoleMiddleware(['admin']), DBControllerUsers.updateUser);  
+// Обновление пользователя
+router.patch('/red', checkRoleMiddleware(['admin']), DBControllerUsers.updateUser);  
 
 export default router;

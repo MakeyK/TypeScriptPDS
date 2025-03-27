@@ -7,7 +7,7 @@ export default function (req: Request, res: Response, next: NextFunction): void 
     }
     
     try {
-        const token: string = req.headers.authorization?.split(' ')[1];
+        const token: string | undefined = req.headers.authorization?.split(' ')[1];
         if (!token) {
             res.status(401).json({ message: "Не авторизован" });
             return; 

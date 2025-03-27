@@ -7,12 +7,12 @@ class DBControllerUPassengers {
     async createPassengers(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const { first_name, last_name }: { first_name: string; last_name: string } = req.body.data;
-            const id_user: number = Number(req.user.id_user);
+            const id_user: number = Number(req.user?.id_user);
             if (!first_name || !last_name) {
                 return next(ApiError.badRequest("Введите полностью данные"));
             }
             await Passengers.create({ id_user, first_name, last_name });
-            return res.json({ message: "Пассажир создан" });
+            res.json({ message: "Пассажир создан" });
         } catch (error) {
             next(ApiError.badRequest("Что-то пошло не так"));
             console.log(error);
@@ -20,13 +20,13 @@ class DBControllerUPassengers {
     }
     async getAll(req: Request, res: Response): Promise<void> {
         const passengers = await Passengers.findAll();
-        return res.json(passengers);
+         res.json(passengers);
     }
 
     async getID(req: Request<{ id_passenger: string }>, res: Response): Promise<void> {
         const { id_passenger }: { id_passenger: string } = req.params;
         let id_passeng = await Passengers.findAll({ where: { id_passenger } });
-        return res.json(id_passeng);
+         res.json(id_passeng);
     }
 
     async DelId(req: Request<{ id_passenger: string }>, res: Response): Promise<Response> {
@@ -56,7 +56,7 @@ class DBControllerUPassengers {
                 return next(ApiError.badRequest("Данные не предоставлены"));
             }
             const { first_name, last_name }: { first_name?: string; last_name?: string } = data;
-            const id_user: number = Number(req.user.id_user);
+            const id_user: number = Number(req.user?.id_user);
             const passenger = await Passengers.findOne({ where: { id_user } });
             if (!passenger) {
                 return next(ApiError.badRequest("Пассажир не найден"));
